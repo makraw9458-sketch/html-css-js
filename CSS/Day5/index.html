@@ -1,0 +1,104 @@
+<!-- chess board UI using flex-box -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="board">
+        <div id="r1" class="row">
+            <div id="11" class="cell"><span class="piece">♜</span></div>   <!-- black rook -->
+            <div id="12" class="cell"><span class="piece">♞</span></div>   <!-- black knight -->
+            <div id="13" class="cell"><span class="piece">♝</span></div>   <!-- black bishop -->
+            <div id="14" class="cell"><span class="piece">♛</span></div>   <!-- black queen -->
+            <div id="15" class="cell"><span class="piece">♚</span></div>   <!-- black king -->
+            <div id="16" class="cell"><span class="piece">♝</span></div>   <!-- black bishop -->
+            <div id="17" class="cell"><span class="piece">♞</span></div>   <!-- black knight -->
+            <div id="18" class="cell"><span class="piece">♜</span></div>   <!-- black rook -->
+        </div>
+
+        <!-- ROW 7 – black pawns -->
+        <div id="r2" class="row">
+            <div id="21" class="cell"><span class="piece" id="black-pawn-1">♟</span></div>
+            <div id="22" class="cell"><span class="piece" id="black-pawn-2">♟</span></div>
+            <div id="23" class="cell"><span class="piece" id="black-pawn-3">♟</span></div>
+            <div id="24" class="cell"><span class="piece" id="black-pawn-4">♟</span></div>
+            <div id="25" class="cell"><span class="piece" id="black-pawn-5">♟</span></div>
+            <div id="26" class="cell"><span class="piece" id="black-pawn-6">♟</span></div>
+            <div id="27" class="cell"><span class="piece" id="black-pawn-7">♟</span></div>
+            <div id="28" class="cell"><span class="piece" id="black-pawn-8">♟</span></div>
+        </div>
+        
+        <div id="r3" class="row">
+            <div id="31" class="cell"></div>
+            <div id="32" class="cell"></div>
+            <div id="33" class="cell"></div>
+            <div id="34" class="cell"></div>
+            <div id="35" class="cell"></div>
+            <div id="36" class="cell"></div>
+            <div id="37" class="cell"></div>
+            <div id="38" class="cell"></div>
+        </div>
+
+        <div id="r4" class="row">
+            <div id="41" class="cell"></div>
+            <div id="42" class="cell"></div>
+            <div id="43" class="cell"></div>
+            <div id="44" class="cell"></div>
+            <div id="45" class="cell"></div>
+            <div id="46" class="cell"></div>
+            <div id="47" class="cell"></div>
+            <div id="48" class="cell"></div>
+        </div>
+
+        <div id="r5" class="row">
+            <div id="51" class="cell"></div>
+            <div id="52" class="cell"></div>
+            <div id="53" class="cell"></div>
+            <div id="54" class="cell"></div>
+            <div id="55" class="cell"></div>
+            <div id="56" class="cell"></div>
+            <div id="57" class="cell"></div>
+            <div id="58" class="cell"></div>
+        </div>
+
+        <div id="r6" class="row">
+            <div id="61" class="cell"></div>
+            <div id="62" class="cell"></div>
+            <div id="63" class="cell"></div>
+            <div id="64" class="cell"></div>
+            <div id="65" class="cell"></div>
+            <div id="66" class="cell"></div>
+            <div id="67" class="cell"></div>
+            <div id="68" class="cell"></div>
+        </div>
+
+        <div id="r7" class="row">
+            <div id="71" class="cell"><span class="piece" id="white-pawn-1">♙</span></div>
+            <div id="72" class="cell"><span class="piece" id="white-pawn-2">♙</span></div>
+            <div id="73" class="cell"><span class="piece" id="white-pawn-3">♙</span></div>
+            <div id="74" class="cell"><span class="piece" id="white-pawn-4">♙</span></div>
+            <div id="75" class="cell"><span class="piece" id="white-pawn-5">♙</span></div>
+            <div id="76" class="cell"><span class="piece" id="white-pawn-6">♙</span></div>
+            <div id="77" class="cell"><span class="piece" id="white-pawn-7">♙</span></div>
+            <div id="78" class="cell"><span class="piece" id="white-pawn-8">♙</span></div>
+        </div>
+
+        <!-- ROW 1 (bottom row) – White pieces -->
+        <div id="r8" class="row">
+            <div id="81" class="cell"><span class="piece">♖</span></div>   <!-- white rook -->
+            <div id="82" class="cell"><span class="piece">♘</span></div>   <!-- white knight -->
+            <div id="83" class="cell"><span class="piece">♗</span></div>   <!-- white bishop -->
+            <div id="84" class="cell"><span class="piece">♕</span></div>   <!-- white queen -->
+            <div id="85" class="cell"><span class="piece">♔</span></div>   <!-- white king -->
+            <div id="86" class="cell"><span class="piece">♗</span></div>   <!-- white bishop -->
+            <div id="87" class="cell"><span class="piece">♘</span></div>   <!-- white knight -->
+            <div id="88" class="cell"><span class="piece">♖</span></div>   <!-- white rook -->
+        </div>
+    </div>
+</body>
+</html>

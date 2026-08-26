@@ -1,0 +1,102 @@
+/* ── reset & base ── */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #1e2b3a;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    border: 8px solid #3d2b1f;
+    border-radius: 6px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6);
+    background: #3d2b1f;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    width: 12vw;
+    height: 12vw;
+    max-width: 80px;
+    max-height: 80px;
+    min-width: 44px;
+    min-height: 44px;
+    background: #f0d9b5;
+    /* light square */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5vw;
+    /* responsive piece size */
+    transition: 0.1s ease;
+    border: 1px solid #5a3e2b;
+    cursor: default;
+    user-select: none;
+}
+
+/* ── chessboard alternating colours ── */
+.row:nth-child(even) .cell:nth-child(odd) {
+    background: #b58863;
+    /* dark square */
+}
+
+.row:nth-child(odd) .cell:nth-child(even) {
+    background: #b58863;
+    /* dark square */
+}
+
+/* ── piece colour contrast on dark squares ── */
+.row:nth-child(even) .cell:nth-child(odd) .piece {
+    filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.2));
+}
+
+.row:nth-child(odd) .cell:nth-child(even) .piece {
+    filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.2));
+}
+
+/* ── responsive sizing ── */
+@media (max-width: 600px) {
+    .cell {
+        width: 11vw;
+        height: 11vw;
+        min-width: 34px;
+        min-height: 34px;
+        font-size: 5.5vw;
+    }
+}
+
+@media (max-width: 420px) {
+    .cell {
+        width: 10vw;
+        height: 10vw;
+        min-width: 28px;
+        min-height: 28px;
+        font-size: 5vw;
+    }
+}
+
+/* ── small hover effect ── */
+.cell:hover {
+    filter: brightness(1.06);
+    transform: scale(0.97);
+    transition: 0.08s;
+}
+
+/* piece class – just for clarity (optional) */
+.piece {
+    line-height: 1;
+    pointer-events: none;
+}
