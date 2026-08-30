@@ -1,5 +1,3 @@
-const cells = document.getElementsByClassName("cell");
-
 export const pieceSymbol_to_pieceNameAndTeam_mapper = (pieceSymbol) =>{
     let pieceSymbol_and_team;
 
@@ -116,12 +114,19 @@ export const findAllowedPositions = (piece, position_row, position_column) => {
         if (team === "black") {
             if (row === 2) {
                 for (let i = 1; i <= 2; i++) {
+                    if (document.querySelector(`[data-row="${row+i}"]`) === null || document.querySelector(`[data-row="${row+i}"]`).innerHTML != "") {
+                        // Blocking pieces and out of board cells handling
+                        break
+                    }
                     allowedMovements = [...allowedMovements, {"row":row+i, "column":column}]
                 }
             }else{
-                allowedMovements = [
-                    {"row":row+1, "column":column},
-                ]
+                if (document.querySelector(`[data-row="${row+i}"]`) != null && document.querySelector(`[data-row="${row+i}"]`).innerHTML === "") {
+                    // Blocking pieces and out of board cells handling
+                    allowedMovements = [
+                        {"row":row+1, "column":column},
+                    ]
+                }
             }
         }
 
@@ -130,12 +135,18 @@ export const findAllowedPositions = (piece, position_row, position_column) => {
             if (row === 7) {
                 // piece is at initial position
                 for (let i = 1; i <= 2; i++) {
+                    if (document.querySelector(`[data-row="${row-i}"]`) === null || document.querySelector(`[data-row="${row-i}"]`).innerHTML != "") {
+                        // Blocking pieces and out of board cells handling
+                        break
+                    }
                     allowedMovements = [...allowedMovements, {"row":row-i, "column":column}]
                 }
             }else{
-                allowedMovements = [
-                    {"row":row-1, "column":column},
-                ]
+                if (document.querySelector(`[data-row="${row-i}"]`) != null && document.querySelector(`[data-row="${row-i}"]`).innerHTML === "") {
+                    allowedMovements = [
+                        {"row":row-1, "column":column},
+                    ]
+                }
             }
         }
 
@@ -144,32 +155,70 @@ export const findAllowedPositions = (piece, position_row, position_column) => {
 
     // KNIGHT
     if (name === "knight") {
-        return [
-            {"row":row+1, "column":column+2},
-            {"row":row+2, "column":column+1},
+        let allowedMovements = []
 
-            {"row":row-1, "column":column-2},
-            {"row":row-2, "column":column-1},
+        if (document.querySelector(`[data-row="${row+1}"][data-column="${column+2}"]`) != null && document.querySelector(`[data-row="${row+1}"][data-column="${column+2}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row+1, "column":column+2}]
+        }
+        if (document.querySelector(`[data-row="${row+2}"][data-column="${column+1}"]`) != null && document.querySelector(`[data-row="${row+2}"][data-column="${column+1}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row+2, "column":column+1}]
+        }
 
-            {"row":row+1, "column":column-2},
-            {"row":row+2, "column":column-1},
+        if (document.querySelector(`[data-row="${row-1}"][data-column="${column-2}"]`) != null && document.querySelector(`[data-row="${row-1}"][data-column="${column-2}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row-1, "column":column-2}]
+        }
+        if (document.querySelector(`[data-row="${row-2}"][data-column="${column-1}"]`) != null && document.querySelector(`[data-row="${row-2}"][data-column="${column-1}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row-2, "column":column-1}]
+        }
 
-            {"row":row-1, "column":column+2},
-            {"row":row-2, "column":column+1},
-        ]
+        if (document.querySelector(`[data-row="${row+1}"][data-column="${column-2}"]`) != null && document.querySelector(`[data-row="${row+1}"][data-column="${column-2}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row+1, "column":column-2}]
+        }
+        if (document.querySelector(`[data-row="${row+2}"][data-column="${column-1}"]`) != null && document.querySelector(`[data-row="${row+2}"][data-column="${column-1}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row+2, "column":column-1}]
+        }
+
+        if (document.querySelector(`[data-row="${row-1}"][data-column="${column+2}"]`) != null && document.querySelector(`[data-row="${row-1}"][data-column="${column+2}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row-1, "column":column+2}]
+        }
+        if (document.querySelector(`[data-row="${row-2}"][data-column="${column+1}"]`) != null && document.querySelector(`[data-row="${row-2}"][data-column="${column+1}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row-2, "column":column+1}]
+        }
+        
+        return allowedMovements
     }
 
     // ROOK
     if (name === "rook") {
         let allowedMovements = [];
-
         for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-row="${row+i}"]`) === null || document.querySelector(`[data-row="${row+i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row+i, "column":column}]
+        }
+        for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-column="${column+i}"]`) === null || document.querySelector(`[data-column="${column+i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row, "column":column+i}]
+        }
+        for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-row="${row-i}"]`) === null || document.querySelector(`[data-row="${row-i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row-i, "column":column}]
+        }
+        for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-column="${column-i}"]`) === null || document.querySelector(`[data-column="${column-i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row, "column":column-i}]
         }
-        
         return allowedMovements
     }
 
@@ -178,9 +227,34 @@ export const findAllowedPositions = (piece, position_row, position_column) => {
         let allowedMovements = [];
 
         for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-row="${row+i}"][data-column="${column+i}"]`) === null || document.querySelector(`[data-row="${row+i}"][data-column="${column+i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row+i, "column":column+i}]
+        }
+
+        for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-row="${row-i}"][data-column="${column-i}"]`) === null || document.querySelector(`[data-row="${row-i}"][data-column="${column-i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row-i, "column":column-i}]
+        }
+
+        for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-row="${row+i}"][data-column="${column-i}"]`) === null || document.querySelector(`[data-row="${row+i}"][data-column="${column-i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row+i, "column":column-i}]
+        }
+
+        for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-row="${row-i}"][data-column="${column+i}"]`) === null || document.querySelector(`[data-row="${row-i}"][data-column="${column+i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row-i, "column":column+i}]
         }
         
@@ -191,16 +265,67 @@ export const findAllowedPositions = (piece, position_row, position_column) => {
     if (name === "queen") {
         let allowedMovements = [];
 
+        // ROOK
         for (let i = 1; i <= 7; i++) {
-            // ROOK
+            if (document.querySelector(`[data-row="${row+i}"]`) === null || document.querySelector(`[data-row="${row+i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row+i, "column":column}]
+        }
+        for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-column="${column+i}"]`) === null || document.querySelector(`[data-column="${column+i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row, "column":column+i}]
+        }
+        for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-row="${row-i}"]`) === null || document.querySelector(`[data-row="${row-i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row-i, "column":column}]
+        }
+        for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-column="${column-i}"]`) === null || document.querySelector(`[data-column="${column-i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row, "column":column-i}]
-            // BISHOP
+        }
+        
+        
+        // BISHOP
+        for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-row="${row+i}"][data-column="${column+i}"]`) === null || document.querySelector(`[data-row="${row+i}"][data-column="${column+i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row+i, "column":column+i}]
+        }
+
+        for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-row="${row-i}"][data-column="${column-i}"]`) === null || document.querySelector(`[data-row="${row-i}"][data-column="${column-i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row-i, "column":column-i}]
+        }
+
+        for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-row="${row+i}"][data-column="${column-i}"]`) === null || document.querySelector(`[data-row="${row+i}"][data-column="${column-i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row+i, "column":column-i}]
+        }
+
+        for (let i = 1; i <= 7; i++) {
+            if (document.querySelector(`[data-row="${row-i}"][data-column="${column+i}"]`) === null || document.querySelector(`[data-row="${row-i}"][data-column="${column+i}"]`).innerHTML != "") {
+                // Blocking pieces and out of board cells handling
+                break
+            }
             allowedMovements = [...allowedMovements, {"row":row-i, "column":column+i}]
         }
         
@@ -209,18 +334,36 @@ export const findAllowedPositions = (piece, position_row, position_column) => {
 
     // KING
     if (name === "king") {
-        return [
-            {"row":row+1, "column":column},
-            {"row":row, "column":column+1},
-            {"row":row+1, "column":column+1},
+        let allowedMovements = [];
 
-            {"row":row-1, "column":column},
-            {"row":row, "column":column-1},
-            {"row":row-1, "column":column-1},
+        if (document.querySelector(`[data-row="${row+1}"][data-column="${column}"]`) != null && document.querySelector(`[data-row="${row+1}"][data-column="${column}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row+1, "column":column}]
+        }
+        if (document.querySelector(`[data-row="${row}"][data-column="${column+1}"]`) != null && document.querySelector(`[data-row="${row}"][data-column="${column+1}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row, "column":column+1}]
+        }
+        if (document.querySelector(`[data-row="${row+1}"][data-column="${column+1}"]`) != null && document.querySelector(`[data-row="${row+1}"][data-column="${column+1}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row+1, "column":column+1}]
+        }
 
-            {"row":row+1, "column":column-1},
-            {"row":row-1, "column":column+1},
-        ]
+        if (document.querySelector(`[data-row="${row-1}"][data-column="${column}"]`) != null && document.querySelector(`[data-row="${row-1}"][data-column="${column}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row-1, "column":column}]
+        }
+        if (document.querySelector(`[data-row="${row}"][data-column="${column-1}"]`) != null && document.querySelector(`[data-row="${row}"][data-column="${column-1}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row, "column":column-1}]
+        }
+        if (document.querySelector(`[data-row="${row-1}"][data-column="${column-1}"]`) != null && document.querySelector(`[data-row="${row-1}"][data-column="${column-1}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row-1, "column":column-1}]
+        }
+
+        if (document.querySelector(`[data-row="${row+1}"][data-column="${column-1}"]`) != null && document.querySelector(`[data-row="${row+1}"][data-column="${column-1}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row+1, "column":column-1}]
+        }
+        if (document.querySelector(`[data-row="${row-1}"][data-column="${column+1}"]`) != null && document.querySelector(`[data-row="${row-1}"][data-column="${column+1}"]`).innerHTML === "") {
+            allowedMovements = [...allowedMovements, {"row":row-1, "column":column+1}]
+        }
+
+        return allowedMovements
     }
 
     // TO-DOs
