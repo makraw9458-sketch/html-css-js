@@ -1,3 +1,5 @@
+const cells = document.getElementsByClassName("cell");
+
 export const pieceSymbol_to_pieceNameAndTeam_mapper = (pieceSymbol) =>{
     let pieceSymbol_and_team;
 
@@ -109,16 +111,15 @@ export const findAllowedPositions = (piece, position_row, position_column) => {
     
     // PAWN
     if (name === "pawn") {
+        let allowedMovements = [];
         // black
         if (team === "black") {
             if (row === 2) {
-                // piece is at initial position
-                return [
-                    {"row":row+1, "column":column},
-                    {"row":row+2, "column":column},
-                ]
+                for (let i = 1; i <= 2; i++) {
+                    allowedMovements = [...allowedMovements, {"row":row+i, "column":column}]
+                }
             }else{
-                return [
+                allowedMovements = [
                     {"row":row+1, "column":column},
                 ]
             }
@@ -128,16 +129,17 @@ export const findAllowedPositions = (piece, position_row, position_column) => {
         if (team === "white") {
             if (row === 7) {
                 // piece is at initial position
-                return [
-                    {"row":row-1, "column":column},
-                    {"row":row-2, "column":column},
-                ]
+                for (let i = 1; i <= 2; i++) {
+                    allowedMovements = [...allowedMovements, {"row":row-i, "column":column}]
+                }
             }else{
-                return [
+                allowedMovements = [
                     {"row":row-1, "column":column},
                 ]
             }
         }
+
+        return allowedMovements
     }
 
     // KNIGHT
@@ -145,10 +147,13 @@ export const findAllowedPositions = (piece, position_row, position_column) => {
         return [
             {"row":row+1, "column":column+2},
             {"row":row+2, "column":column+1},
+
             {"row":row-1, "column":column-2},
             {"row":row-2, "column":column-1},
+
             {"row":row+1, "column":column-2},
             {"row":row+2, "column":column-1},
+
             {"row":row-1, "column":column+2},
             {"row":row-2, "column":column+1},
         ]
@@ -156,150 +161,50 @@ export const findAllowedPositions = (piece, position_row, position_column) => {
 
     // ROOK
     if (name === "rook") {
-        return [
-            {"row":row+1, "column":column},
-            {"row":row+2, "column":column},
-            {"row":row+3, "column":column},
-            {"row":row+4, "column":column},
-            {"row":row+5, "column":column},
-            {"row":row+6, "column":column},
-            {"row":row+7, "column":column},
+        let allowedMovements = [];
 
-            {"row":row, "column":column+1},
-            {"row":row, "column":column+2},
-            {"row":row, "column":column+3},
-            {"row":row, "column":column+4},
-            {"row":row, "column":column+5},
-            {"row":row, "column":column+6},
-            {"row":row, "column":column+7},
-
-
-            {"row":row-1, "column":column},
-            {"row":row-2, "column":column},
-            {"row":row-3, "column":column},
-            {"row":row-4, "column":column},
-            {"row":row-5, "column":column},
-            {"row":row-6, "column":column},
-            {"row":row-7, "column":column},
-
-            {"row":row, "column":column-1},
-            {"row":row, "column":column-2},
-            {"row":row, "column":column-3},
-            {"row":row, "column":column-4},
-            {"row":row, "column":column-5},
-            {"row":row, "column":column-6},
-            {"row":row, "column":column-7},
-
-        ]
+        for (let i = 1; i <= 7; i++) {
+            allowedMovements = [...allowedMovements, {"row":row+i, "column":column}]
+            allowedMovements = [...allowedMovements, {"row":row, "column":column+i}]
+            allowedMovements = [...allowedMovements, {"row":row-i, "column":column}]
+            allowedMovements = [...allowedMovements, {"row":row, "column":column-i}]
+        }
+        
+        return allowedMovements
     }
 
     // BISHOP
     if (name === "bishop") {
-        return [
-            {"row":row+1, "column":column+1},
-            {"row":row+2, "column":column+2},
-            {"row":row+3, "column":column+3},
-            {"row":row+4, "column":column+4},
-            {"row":row+5, "column":column+5},
-            {"row":row+6, "column":column+6},
-            {"row":row+7, "column":column+7},
+        let allowedMovements = [];
 
-            {"row":row-1, "column":column-1},
-            {"row":row-2, "column":column-2},
-            {"row":row-3, "column":column-3},
-            {"row":row-4, "column":column-4},
-            {"row":row-5, "column":column-5},
-            {"row":row-6, "column":column-6},
-            {"row":row-7, "column":column-7},
-
-            {"row":row+1, "column":column-1},
-            {"row":row+2, "column":column-2},
-            {"row":row+3, "column":column-3},
-            {"row":row+4, "column":column-4},
-            {"row":row+5, "column":column-5},
-            {"row":row+6, "column":column-6},
-            {"row":row+7, "column":column-7},
-
-            {"row":row-1, "column":column+1},
-            {"row":row-2, "column":column+2},
-            {"row":row-3, "column":column+3},
-            {"row":row-4, "column":column+4},
-            {"row":row-5, "column":column+5},
-            {"row":row-6, "column":column+6},
-            {"row":row-7, "column":column+7},
-        ]
+        for (let i = 1; i <= 7; i++) {
+            allowedMovements = [...allowedMovements, {"row":row+i, "column":column+i}]
+            allowedMovements = [...allowedMovements, {"row":row-i, "column":column-i}]
+            allowedMovements = [...allowedMovements, {"row":row+i, "column":column-i}]
+            allowedMovements = [...allowedMovements, {"row":row-i, "column":column+i}]
+        }
+        
+        return allowedMovements
     }
 
     // QUEEN
     if (name === "queen") {
-        return [
+        let allowedMovements = [];
+
+        for (let i = 1; i <= 7; i++) {
             // ROOK
-            {"row":row+1, "column":column},
-            {"row":row+2, "column":column},
-            {"row":row+3, "column":column},
-            {"row":row+4, "column":column},
-            {"row":row+5, "column":column},
-            {"row":row+6, "column":column},
-            {"row":row+7, "column":column},
-
-            {"row":row, "column":column+1},
-            {"row":row, "column":column+2},
-            {"row":row, "column":column+3},
-            {"row":row, "column":column+4},
-            {"row":row, "column":column+5},
-            {"row":row, "column":column+6},
-            {"row":row, "column":column+7},
-
-
-            {"row":row-1, "column":column},
-            {"row":row-2, "column":column},
-            {"row":row-3, "column":column},
-            {"row":row-4, "column":column},
-            {"row":row-5, "column":column},
-            {"row":row-6, "column":column},
-            {"row":row-7, "column":column},
-
-            {"row":row, "column":column-1},
-            {"row":row, "column":column-2},
-            {"row":row, "column":column-3},
-            {"row":row, "column":column-4},
-            {"row":row, "column":column-5},
-            {"row":row, "column":column-6},
-            {"row":row, "column":column-7},
-
+            allowedMovements = [...allowedMovements, {"row":row+i, "column":column}]
+            allowedMovements = [...allowedMovements, {"row":row, "column":column+i}]
+            allowedMovements = [...allowedMovements, {"row":row-i, "column":column}]
+            allowedMovements = [...allowedMovements, {"row":row, "column":column-i}]
             // BISHOP
-            {"row":row+1, "column":column+1},
-            {"row":row+2, "column":column+2},
-            {"row":row+3, "column":column+3},
-            {"row":row+4, "column":column+4},
-            {"row":row+5, "column":column+5},
-            {"row":row+6, "column":column+6},
-            {"row":row+7, "column":column+7},
-
-            {"row":row-1, "column":column-1},
-            {"row":row-2, "column":column-2},
-            {"row":row-3, "column":column-3},
-            {"row":row-4, "column":column-4},
-            {"row":row-5, "column":column-5},
-            {"row":row-6, "column":column-6},
-            {"row":row-7, "column":column-7},
-
-            {"row":row+1, "column":column-1},
-            {"row":row+2, "column":column-2},
-            {"row":row+3, "column":column-3},
-            {"row":row+4, "column":column-4},
-            {"row":row+5, "column":column-5},
-            {"row":row+6, "column":column-6},
-            {"row":row+7, "column":column-7},
-
-            {"row":row-1, "column":column+1},
-            {"row":row-2, "column":column+2},
-            {"row":row-3, "column":column+3},
-            {"row":row-4, "column":column+4},
-            {"row":row-5, "column":column+5},
-            {"row":row-6, "column":column+6},
-            {"row":row-7, "column":column+7},
-        ]
+            allowedMovements = [...allowedMovements, {"row":row+i, "column":column+i}]
+            allowedMovements = [...allowedMovements, {"row":row-i, "column":column-i}]
+            allowedMovements = [...allowedMovements, {"row":row+i, "column":column-i}]
+            allowedMovements = [...allowedMovements, {"row":row-i, "column":column+i}]
+        }
+        
+        return allowedMovements
     }
 
     // KING
