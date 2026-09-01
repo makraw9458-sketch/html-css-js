@@ -121,7 +121,7 @@ export const findAllowedPositions = (piece, position_row, position_column) => {
                     allowedMovements = [...allowedMovements, {"row":row+i, "column":column}]
                 }
             }else{
-                if (document.querySelector(`[data-row="${row+i}"]`) != null && document.querySelector(`[data-row="${row+i}"]`).innerHTML === "") {
+                if (document.querySelector(`[data-row="${row+1}"]`) != null && document.querySelector(`[data-row="${row+1}"]`).innerHTML === "") {
                     // Blocking pieces and out of board cells handling
                     allowedMovements = [
                         {"row":row+1, "column":column},
@@ -142,7 +142,7 @@ export const findAllowedPositions = (piece, position_row, position_column) => {
                     allowedMovements = [...allowedMovements, {"row":row-i, "column":column}]
                 }
             }else{
-                if (document.querySelector(`[data-row="${row-i}"]`) != null && document.querySelector(`[data-row="${row-i}"]`).innerHTML === "") {
+                if (document.querySelector(`[data-row="${row-1}"]`) != null && document.querySelector(`[data-row="${row-1}"]`).innerHTML === "") {
                     allowedMovements = [
                         {"row":row-1, "column":column},
                     ]
@@ -365,7 +365,4 @@ export const findAllowedPositions = (piece, position_row, position_column) => {
 
         return allowedMovements
     }
-
-    // TO-DOs
-    // remove the blocked movements - find positions programmatically
 }
