@@ -2,6 +2,15 @@ import { findAllowedPositions } from "./AllowedMovements.js";
 import {move_piece} from "./MovePieces.js";
 
 const cells = document.getElementsByClassName("cell");
+// ======================
+
+// console.log(Number(cells[1].dataset.row) + Number(cells[1].dataset.row))
+
+cells[0].addEventListener("click",() => {
+    alert("HI")
+})
+
+// ======================
 
 const SelectAllowedCells = (e) => {
     if (e.target.innerHTML == "") {
